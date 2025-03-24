@@ -87,6 +87,7 @@ class Vehicle():
         vehicle.num_wheels = 0
         return vehicle
     
+    @classmethod
     def road_vehicle(cls, name, dimensions, num_wheels):
         vehicle = Vehicle()
         vehicle.name = name
@@ -106,4 +107,11 @@ class Vehicle():
         return True
     
 boat = Vehicle.water_vehicle("Minnow", (30,40,10))
-print(boat.name)
+print(f"Boat name:{boat.name}, volume: {boat.volume()}.")
+
+car = Vehicle.road_vehicle("Camry", (4,3,10), 6)
+print(f"car name:{car.name}, volume : {car.volume()} and has {car.num_wheels} wheels.")
+
+print(Vehicle.all_float(boat, car))
+
+print(boat.floats)
