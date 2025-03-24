@@ -15,10 +15,6 @@ class Dog: # type: ignore
         self.age +=1
 
     
-if __name__ == '__main__':
-    philo = Dog("Phile", 3)
-    mikey = Dog("Mikey", 4)
-
 
 
 # Inheritance
@@ -106,12 +102,17 @@ class Vehicle():
                 return False
         return True
     
-boat = Vehicle.water_vehicle("Minnow", (30,40,10))
-print(f"Boat name:{boat.name}, volume: {boat.volume()}.")
 
-car = Vehicle.road_vehicle("Camry", (4,3,10), 6)
-print(f"car name:{car.name}, volume : {car.volume()} and has {car.num_wheels} wheels.")
+if __name__ == '__main__':
+    philo = Dog("Phile", 3)
+    mikey = Dog("Mikey", 4)
+    
+    boat = Vehicle.water_vehicle("Minnow", (30,40,10))
+    print(f"Boat name:{boat.name}, volume: {boat.volume()}.")
 
-print(Vehicle.all_float(boat, car))
+    car = Vehicle.road_vehicle("Camry", (4,3,10), 6)
+    print(f"car name:{car.name}, volume : {car.volume()} and has {car.num_wheels} wheels.")
 
-print(boat.floats)
+    print(Vehicle.all_float(boat, car))
+
+    print(boat.floats)
