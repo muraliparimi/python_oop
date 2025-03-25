@@ -60,6 +60,7 @@ class Circle:
     def __init__(self, radius):
         self._radius = radius
 
+# The decorator @property allows to treat a class method as a variable and can provide fine grained control on how certain values of the instance are set.
     @property
     def radius(self):
         return self._radius
