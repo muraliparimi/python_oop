@@ -45,17 +45,19 @@ def sort_and_find_bad_users(logs):
     bad_users= set()
     bad_users_activity = {}
     for log in sort_logs_op:
-        ts, uid, action = tuple(log.split(","))
-        ts = format_datetime(ts.strip())
-        uid = uid.strip()
-        action = action.strip()
+        try:
+            ts, uid, action = map(str.strip, log.split(','))
+            ts = format_datetime(ts.strip())
+        except (ValueError, IndexError):
+            print(f"Skipping malformed log: {log}")
+            continue
         key = f"{uid}-{action}"
         sorted_logs_op.append({"timestamp": ts, "user_id": uid, "action": action})
         if key not in bad_users_activity:
             bad_users_activity[key] = [ts]
         else:
             difference_in_seconds = (ts - bad_users_activity[key][-1]).total_seconds()
-            if difference_in_seconds <=10:
+            if difference_in_seconds <10:
                 bad_users.add(uid)
             bad_users_activity[key] = [ts]
     return bad_users, sorted_logs_op
@@ -63,15 +65,7 @@ def sort_and_find_bad_users(logs):
 
 if __name__ == '__main__':
     bad_users , sorted_data = sort_and_find_bad_users(logs)
-    if list(bad_users) != suspicious_users:
+    if sorted(list(bad_users)) != sorted(suspicious_users):
         print(f"outputs not matching Expected: {suspicious_users} but got {bad_users}")
     else:
         print("outputs matched")
-
-
-
-
-
-
-
-
