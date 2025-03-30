@@ -54,6 +54,21 @@ def max_sum_sub_array_1(num_array: List[int], k: int) -> List[int]:
             result = num_array[i:i+k]
     return result
 
+#leetcode #643 implementation
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        array_len = len(nums)
+        if array_len < k:
+            return None
+        if array_len == k:
+            return sum(nums)/k
+        max_sum = running_sum = sum(nums[:k])
+        for i in range(1, array_len -k +1):
+            running_sum = running_sum - nums[i-1] + nums[i+k-1]
+            if running_sum > max_sum:
+                max_sum = running_sum
+        return max_sum/k
+
 
 if __name__ == '__main__':
     num_array = [-1, 0, -1, 3, 5, -2, 7, -7, 9, 4, -3, 6]
