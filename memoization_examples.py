@@ -39,10 +39,17 @@ def factorial_memoization(n, computed = {0:1, 1:1}):
 #print(fib_recusion(5))
 #print(fib_recusion(10))
 start_time = time()
-fib_series = 100
-print(fib_recusion(fib_series))
-print(f"total time to calculate fibonacci({fib_series}) with recursion:{time() - start_time} ")
+fib_series = 25
+# print(fib_recusion(fib_series))
+# print(f"total time to calculate fibonacci({fib_series}) with recursion:{time() - start_time} ")
 
+# start_time = time()
+# print(fib_memoization(fib_series))
+# print(f"total time to calculate fibonacci({fib_series}) with memoization:{time() - start_time} ")
+
+
+print(factorial_recursion(fib_series))
+print(f"total time to calculate factorial_recursion({fib_series}) with recursion:{time() - start_time} ")
 start_time = time()
-print(fib_memoization(fib_series))
-print(f"total time to calculate fibonacci({fib_series}) with memoization:{time() - start_time} ")
+print(factorial_memoization(fib_series))
+print(f"total time to calculate factorial_memoization({fib_series}) with memoization:{time() - start_time} ")
