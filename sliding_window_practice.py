@@ -55,6 +55,7 @@ def max_sum_sub_array_1(num_array: List[int], k: int) -> List[int]:
     return result
 
 #leetcode #643 implementation
+# 643. Maximum Average Subarray I
 class Solution:
     def findMaxAverage(self, nums: List[int], k: int) -> float:
         array_len = len(nums)
@@ -69,6 +70,51 @@ class Solution:
                 max_sum = running_sum
         return max_sum/k
 
+
+# 3. Longest Substring Without Repeating Characters
+
+from collections import deque
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        # create a set to contain and track uniq characters
+        #s = set()
+        dq = deque()
+        max_len =  running_len = 0
+        for i in s:
+            if i not in dq:
+                #s.add(i)
+                dq.append(i)
+                running_len +=1
+            else:
+                if running_len > max_len:
+                    max_len = running_len
+                idx = dq.index(i)
+                while idx >-1:
+                    dq.popleft()
+                    idx -=1
+                dq.append(i)
+                running_len = len(dq)
+        return running_len if running_len > max_len else max_len
+    
+    def lengthOfLongestSubstring2(self, s: str) -> int:
+        # create a set to contain and track uniq characters
+        #s = set()
+        dq = deque()
+        max_len =  running_len = 0
+        for i in s:
+            if i not in dq:
+                #s.add(i)
+                dq.append(i)
+                running_len +=1
+            else:
+                if running_len > max_len:
+                    max_len = running_len
+                #idx = dq.index(i)
+                while i in dq:
+                    dq.popleft()
+                dq.append(i)
+                running_len = len(dq)
+        return running_len if running_len > max_len else max_len
 
 if __name__ == '__main__':
     num_array = [-1, 0, -1, 3, 5, -2, 7, -7, 9, 4, -3, 6]
