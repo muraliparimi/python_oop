@@ -1,6 +1,8 @@
 # Fibonacci with recursion
 from time import time
 def fib_recusion(n):
+    if n< 0:
+        return 'Error'
     if n<=1:
         return n
     return fib_recusion(n-1) + fib_recusion(n-2)
@@ -17,15 +19,15 @@ def fib_memoization(n, computed={0: 0, 1:1}):
 def arraySum(arr, index=0):
     if len(arr) ==0:
         return 0
+    if index >= len(arr):
+        return 0
     return arr[index] + arraySum(arr, index + 1)
 
 #Factorial in recursion
 def factorial_recursion(n):
-    if n <0:
-        return None
     if n <= 1:
         return 1
-    return n*factorial_recursion(n-1)
+    return n * factorial_recursion(n-1)
 
 # Factorial with memoization
 
@@ -34,6 +36,7 @@ def factorial_memoization(n, computed = {0:1, 1:1}):
         return computed[n]
     else:
         computed[n] = factorial_memoization(n-1, computed) * n
+        return computed[n]
 
 
 #print(fib_recusion(5))
