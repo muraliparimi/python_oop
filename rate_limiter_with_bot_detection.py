@@ -34,7 +34,7 @@ def rate_limiter(requests):
     request_counter = defaultdict(lambda: defaultdict(int)) # ip --> timestamp --> count
 
     # Track last N endpoint hits per each IP
-    endpoint_history = defaultdict(deque) # ip --> deque of lastend points
+    endpoint_history = defaultdict(deque) # ip --> deque of last end points
    
     # set of known bot ips
     bot_ips = set()
