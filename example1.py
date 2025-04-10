@@ -85,12 +85,14 @@ def report_card(records):
         if student_id not in report:
             cnt += 1
             report[student_id]  = {"name": name, "highest_score": score, "lowest_score": score, "total": total, "count": cnt }
+            print(f"{student_id} is not found and after adding count is {report[student_id]['count']}")
         else:
             print(f"{student_id} is found and its count is {report[student_id]['count']}")
             report[student_id]["highest_score"] = max(report[student_id]["highest_score"], score)
             report[student_id]["lowest_score"] = min(report[student_id]["lowest_score"], score)
             report[student_id]["total"] += score
             report[student_id]["count"] += 1
+            print(f"{student_id} is found and and after incereasing count is {report[student_id]['count']}")
 
     print(report)
 
