@@ -1,5 +1,6 @@
-# Given an array, return true if there are two elements within a window of size k that are equal.
 
+# Given an array, return true if there are two elements within a window of size k that are equal.
+from collections import defaultdict
 from typing import List
 def closeDuplicates(nums, k):
     window = set() # current window of size <= k.
@@ -37,6 +38,18 @@ class numOfSubarrays:
                 ans +=1
         return ans
     
+    def numOfSubarrays_with_targetsum(self, arr:List[int], k:int) -> int:
+        prefix_sum = 0
+        count = 0
+        freq = defaultdict(int)
+        freq[0] = 1
+
+        for num in arr:
+            prefix_sum += num
+            count += freq[prefix_sum-k]
+            freq[prefix_sum] += 1
+        return count
+    
 
 # subarray with same number repetition in a given array. find its length.
 class LengthySubarray:
@@ -70,6 +83,5 @@ class LengthySubarray:
 
 
 if __name__ == '__main__':
-    x = LengthySubarray()
-    print(x.lengthySubarray([1,2,2,3,3,3]))
-    print(x.longestsubarray([1,2,2,3,3,3]))
+    x = numOfSubarrays()
+    print(x.numOfSubarrays_with_targetsum([10, 2, -2, -20, 10, 3], -10))
