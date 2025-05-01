@@ -41,6 +41,7 @@ class ShippingCost:
     def __init__(self, orders, shipping_costs):
         self.orders = orders
         self.shipping_costs = shipping_costs
+        self.shipping_cost_lookup = self.create_shipping_costs_lookup()
 
     def get_product_details(self):
         country = self.orders["country"]
@@ -58,27 +59,26 @@ class ShippingCost:
         return shipping_cost_lookup
 
     
-    def is_tiered_rating(self, country, product, shipping_cost_lookup):
+    def is_tiered_rating(self, country, product):
         # shipping_cost_lookup = self.create_shipping_costs_lookup()
-        if country in shipping_cost_lookup and product in shipping_cost_lookup[country]:
-            return True if len(shipping_cost_lookup[country][product])> 1 else False
+        if country in self.shipping_cost_lookup and product in self.shipping_cost_lookup[country]:
+            return True if len(self.shipping_cost_lookup[country][product])> 1 else False
         
-    def get_tiered_brackets(self, country, product, shipping_cost_lookup):
+    def get_tiered_brackets(self, country, product):
         res = []
-        for costs in shipping_cost_lookup[country][product]:
+        for costs in self.shipping_cost_lookup[country][product]:
             min_quantity, max_quantity, cost = costs.values()
             res.append((min_quantity, max_quantity, cost))
         return res
 
     def get_shipping_costs(self, country, product, quantity):
-        shipping_costs_lookup = self.create_shipping_costs_lookup()
         sum = 0
-        is_tiered_rating = self.is_tiered_rating(country, product, shipping_costs_lookup)
+        is_tiered_rating = self.is_tiered_rating(country, product)
         if not is_tiered_rating:
-            sum += self.get_tiered_brackets(country, product, shipping_costs_lookup)[0][2] * quantity
+            sum += self.get_tiered_brackets(country, product)[0][2] * quantity
             return sum
         while quantity > 0:
-            tiers = self.get_tiered_brackets(country, product, shipping_costs_lookup)
+            tiers = self.get_tiered_brackets(country, product)
             for tier in tiers:
                 min_quantity, max_quantity, cost = tier
                 if max_quantity:
